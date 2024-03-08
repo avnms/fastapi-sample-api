@@ -33,6 +33,13 @@ def get_book(book_id: int):
     raise HTTPException(status_code=404, detail="Book not found")
 
 
+# Endpoint to add a new book
+@app.post("/books")
+def add_book(book: Book):
+    books.append(book.model_dump())
+    return book
+
+
 # Run the app using Uvicorn server
 if __name__ == "__main__":
     import uvicorn

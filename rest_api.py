@@ -50,6 +50,16 @@ def update_book(book_id: int, book: Book):
     raise HTTPException(status_code=404, detail="Book not found")
 
 
+# Endpoint to delete a book
+@app.delete("/books/{book_id}")
+def delete_book(book_id: int):
+    for i, b in enumerate(books):
+        if b["id"] == book_id:
+            del books[i]
+            return {"message": "Book deleted successfully"}
+    raise HTTPException(status_code=404, detail="Book not found")
+
+
 # Run the app using Uvicorn server
 if __name__ == "__main__":
     import uvicorn

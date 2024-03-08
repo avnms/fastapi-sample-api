@@ -24,8 +24,17 @@ def get_books():
     return books
 
 
+# Endpoint to get details of a specific book
+@app.get("/books/{book_id}")
+def get_book(book_id: int):
+    for book in books:
+        if book["id"] == book_id:
+            return book
+    raise HTTPException(status_code=404, detail="Book not found")
+
+
 # Run the app using Uvicorn server
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app=app, host="0.0.0.0", port=8000)
+    uvicorn.run("rest_api:app", host="0.0.0.0", port=8000, reload=True)

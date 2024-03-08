@@ -40,6 +40,16 @@ def add_book(book: Book):
     return book
 
 
+# Endpoint to update an existing book
+@app.put("/books/{book_id}")
+def update_book(book_id: int, book: Book):
+    for i, b in enumerate(books):
+        if b["id"] == book_id:
+            books[i] = book.model_dump()
+            return book
+    raise HTTPException(status_code=404, detail="Book not found")
+
+
 # Run the app using Uvicorn server
 if __name__ == "__main__":
     import uvicorn
